@@ -1,6 +1,5 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-
 console.log(galleryItems);
 
 const galleryPictures = document.querySelector('.gallery');   
@@ -11,33 +10,25 @@ const markupGallery = galleryItems.map((item) =>
     </a></div>`).join("");
 
 galleryPictures.insertAdjacentHTML("afterbegin", markupGallery)
-
 console.log(markupGallery)
-
 galleryPictures.addEventListener("click", handleCreatePicture)
-
-
 
 function handleCreatePicture(e) {
     e.preventDefault();
-
     if (e.target.nodeName !== "IMG") {
     return
     }
-
     const imageModal = e.target.dataset.source
-
     const instance = basicLightbox.create(`
-    <img src="${imageModal}" width="800" height="600">
-`)
+    <img src="${imageModal}" width="800" height="600">`)
     instance.show()
-    
 
-    
+
+
     galleryPictures.addEventListener("keydown", handlerModalClose)
     function handlerModalClose(e) {
         if (e.key === "Escape") {
-        return instance.close()
+            return instance.close(() => {window.removeEventListener("keydown",addEventListener)})
         }
     }
 }
