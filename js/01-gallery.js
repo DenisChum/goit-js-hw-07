@@ -20,17 +20,21 @@ function handleCreatePicture(e) {
     }
     const imageModal = e.target.dataset.source
     const instance = basicLightbox.create(`
-    <img src="${imageModal}" width="800" height="600">`)
+    <img src="${imageModal}" width="800" height="600">`, {
+        onShow: () => {
+            window.addEventListener('keydown', addEventListener);
+        },
+        onClose: () => {
+            window.removeEventListener('keydown', addEventListener);
+        },
+    },
+    );
     instance.show()
-
-
 
     galleryPictures.addEventListener("keydown", handlerModalClose)
     function handlerModalClose(e) {
         if (e.key === "Escape") {
-            return instance.close(() => {window.removeEventListener("keydown",addEventListener)})
+            return instance.close()
         }
     }
 }
-
-
